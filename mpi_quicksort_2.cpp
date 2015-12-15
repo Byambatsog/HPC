@@ -1,3 +1,5 @@
+//it is not completed
+
 #include <iostream>     // std::cout
 #include <functional>   // std::less
 #include <algorithm>    // std::sort
@@ -488,7 +490,7 @@ int main (int argc, char* argv[])
 
     for (int k = 0; k < numTests; ++k) {
 
-        MPI_Barrier(MPI_COMM_WORLD);
+        //MPI_Barrier(MPI_COMM_WORLD);
         ValueType *b = new ValueType[n];
 
         std::copy(a, a + n, b);
@@ -520,12 +522,14 @@ int main (int argc, char* argv[])
             fclose(f);
         }
 
-
+        ValueType *lastPtr = isSorted(b, b+outSize, comp());
+        if(lastPtr != (b+outSize))
+            printf("myRank %d isSorted=%d\n", myRank, lastPtr == (b+outSize));
 
         delete [] b;
 
         freeMPIBuffer();
-        printf("myRank %d sortTime=%g\n", myRank, tSort*1000.0);
+        //printf("myRank %d sortTime=%g\n", myRank, tSort*1000.0);
 
     }
 
